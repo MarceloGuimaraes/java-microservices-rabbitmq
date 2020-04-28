@@ -1,0 +1,32 @@
+
+spring:
+  application:
+    name: registry
+
+server:
+  port: 8791
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 5
+
+
+---
+
+spring:
+  profiles: production
+
+---
+
+spring:
+  profiles: test
+
+---
+
+spring:
+  profiles: development
