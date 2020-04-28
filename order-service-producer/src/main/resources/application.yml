@@ -1,0 +1,48 @@
+
+server:
+  port: 8091
+
+
+---
+
+spring:
+  profiles: production
+
+---
+
+spring:
+  profiles: stage
+
+---
+
+spring:
+  profiles: test
+
+---
+
+spring:
+  profiles: development
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+        orderRegistrationChannel:
+          destination: orderRegistration
+          group: group
+      sleuth:
+        binder: zipkin
+        destination: zipki
+      binders:
+        zipkin:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                addresses: amqp://guest:guest@localhost:5672
+  rabbitmq:
+    addresses: amqp://guest:guest@localhost:5672
+  sleuth.sampler.percentage: 1
+
+
+
